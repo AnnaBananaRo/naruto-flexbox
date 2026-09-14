@@ -7,7 +7,7 @@ const NINJAS = [
   { name: 'קאקאשי האטאקה',  short: 'קא', img: 'images/kakashi.svg', color: '#7a8698' }
 ];
 
-const CLONE = { name: 'קלון צל', short: 'קל', img: 'images/clone.svg', color: '#3fa9d6' };
+const CLONE = { name: 'שיבוט צל', short: 'שי', img: 'images/clone.svg', color: '#3fa9d6' };
 
 const LEVELS = [
   {
@@ -84,7 +84,7 @@ const LEVELS = [
 
   {
     title: 'רב שיבוט צללים',
-    task: 'נארוטו יצר עשרה קלונים – והם לא נכנסים בשורה אחת. חלק מהם כבר חמקו מחוץ לשדה. אפשרו לשורה להישבר לשתי שורות, וארגנו כל שורה במרכז.',
+    task: 'נארוטו יצר עשרה שיבוטים – והם לא נכנסים בשורה אחת. חלק מהם כבר חמקו מחוץ לשדה. אפשרו לשורה להישבר לשתי שורות, וארגנו כל שורה במרכז.',
     units: 10,
     pieces: 'clones',
     controls: ['flex-wrap', 'justify-content'],

@@ -184,8 +184,8 @@ body {
 
 
 .lesson-heading {
-  margin: 26px 0 10px;
-  padding-top: 18px;
+  margin: 0 0 10px;
+  padding-top: 16px;
   border-top: 2px dashed var(--line);
   font-size: 0.95rem;
   color: var(--muted);
@@ -195,16 +195,22 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin-bottom: 22px;
 }
 
 .scroll {
   border: 2px solid #e0cba4;
   border-radius: 12px;
   background: #fdf4e2;
-  padding: 12px 15px;
+  padding: 2px 15px;
+}
+
+.scroll[open] {
+  padding-bottom: 13px;
 }
 
 .scroll__title {
+  padding: 11px 0;
   font-weight: 700;
   font-size: 0.92rem;
   color: var(--orange-dark);
@@ -400,7 +406,7 @@ body {
 
 .message {
   min-height: 26px;
-  margin: 18px 0 4px;
+  margin: 8px 0 0;
   font-weight: 700;
 }
 
@@ -666,9 +672,9 @@ body {
   z-index: 10;
   margin: 0;
   padding: 4px;
-  min-width: 190px;
-  max-width: 330px;
-  max-height: 176px;
+  width: max-content;
+  max-width: 100%;
+  max-height: 200px;
   overflow-y: auto;
   list-style: none;
   background: #44342a;
@@ -678,11 +684,7 @@ body {
 }
 
 .ac__item {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 14px;
-  padding: 5px 9px;
+  padding: 5px 10px;
   border-radius: 5px;
   cursor: pointer;
   white-space: nowrap;
@@ -698,6 +700,7 @@ body {
   color: #ffcf8f;
 }
 
+
 .ac__text b {
   color: #fff;
 }
@@ -705,18 +708,6 @@ body {
 .ac__item.is-selected .ac__text,
 .ac__item.is-selected .ac__text b {
   color: #fff;
-}
-
-.ac__hint {
-  direction: rtl;
-  font-size: 0.72rem;
-  color: #b3a08f;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.ac__item.is-selected .ac__hint {
-  color: #ffeedd;
 }
 
 .code-block textarea {
@@ -761,12 +752,328 @@ body {
   white-space: nowrap;
 }
 
+.victory[hidden],
+.jutsu[hidden] {
+  display: none;
+}
+
+.victory {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 26px 18px;
+  overflow: hidden;
+  background: rgba(45, 32, 18, 0.55);
+  backdrop-filter: blur(3px);
+  animation: victoryFade 0.35s ease-out;
+}
+
+@keyframes victoryFade {
+  from { opacity: 0; }
+}
+
+/* המגילה עצמה */
+.victory__scroll {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  padding: 26px 26px 22px;
+  background: linear-gradient(180deg, #fdf3dd 0%, #f6e7c8 100%);
+  border-radius: 10px;
+  box-shadow: 0 20px 50px rgba(60, 35, 10, 0.45);
+  animation: scrollIn 0.55s cubic-bezier(0.2, 0.9, 0.3, 1.3) both;
+}
+
+@keyframes scrollIn {
+  from { opacity: 0; transform: scale(0.86) translateY(16px); }
+}
+
+.victory__scroll::before,
+.victory__scroll::after {
+  content: '';
+  position: absolute;
+  left: -10px;
+  right: -10px;
+  height: 20px;
+  background: linear-gradient(180deg, #a9773f, #7d5528);
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.victory__scroll::before { top: -12px; }
+.victory__scroll::after  { bottom: -12px; }
+
+.victory__frame {
+  position: relative;
+  overflow: hidden;
+  padding: 20px 18px 18px;
+  border: 2px double #c9a15c;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.victory__ghost {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-8deg);
+  font-size: 13rem;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--orange);
+  opacity: 0.08;
+  pointer-events: none;
+  user-select: none;
+}
+
+.victory__ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 110px;
+  height: 110px;
+  margin: -55px 0 0 -55px;
+  border: 3px solid var(--orange);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  animation: chakraRing 2.6s ease-out infinite;
+}
+
+.victory__ring:nth-child(3) { animation-delay: 0.85s; }
+.victory__ring:nth-child(4) { animation-delay: 1.7s; }
+
+@keyframes chakraRing {
+  0%   { opacity: 0.5; transform: scale(0.35); }
+  100% { opacity: 0;   transform: scale(3.8); }
+}
+
+.victory__seal {
+  position: relative;
+  display: block;
+  margin: 0 auto 10px;
+}
+
+.victory__jp {
+  position: relative;
+  margin: 0 0 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  color: var(--leaf);
+}
+
+.victory__title {
+  position: relative;
+  margin: 0 0 8px;
+  font-size: 1.75rem;
+  font-weight: 900;
+  line-height: 1.2;
+  color: #6d4818;
+}
+
+.victory__sub {
+  position: relative;
+  margin: 0 0 20px;
+  font-size: 1rem;
+  color: #5a4526;
+}
+
+.victory__sub strong {
+  color: #6d4818;
+}
+
+.victory__stats {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  gap: 9px;
+  margin: 0 0 20px;
+  padding: 0;
+  list-style: none;
+}
+
+.victory__stats li {
+  flex: 1 1 0;
+  padding: 9px 5px;
+  background: rgba(255, 255, 255, 0.55);
+  border: 2px solid #ddc191;
+  border-radius: 13px;
+}
+
+.victory__stats b {
+  display: block;
+  font-size: 1.45rem;
+  font-weight: 900;
+  color: #6d4818;
+}
+
+.victory__stats span {
+  font-size: 0.73rem;
+  color: #8a6a3c;
+}
+
+.victory__actions {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.victory__stamp {
+  position: absolute;
+  bottom: 10px;
+  left: 14px;
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #c0392b;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 900;
+  transform: rotate(-12deg);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.victory__drop {
+  position: absolute;
+  top: -40px;
+  font-size: 20px;
+  pointer-events: none;
+  animation: fallDown linear infinite;
+}
+
+.victory__drop--ninja {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  opacity: 0.9;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+}
+
+@keyframes fallDown {
+  0%   { transform: translateY(-40px) rotate(0deg);   opacity: 0; }
+  10%  { opacity: 0.95; }
+  100% { transform: translateY(105vh) rotate(400deg); opacity: 0; }
+}
+
+.victory__drop:nth-child(2)  { right: 6%;  animation-duration: 8s;    animation-delay: 0s; }
+.victory__drop:nth-child(3)  { right: 17%; animation-duration: 10.5s; animation-delay: 1.2s; }
+.victory__drop:nth-child(4)  { right: 30%; animation-duration: 9s;    animation-delay: 2.6s; }
+.victory__drop:nth-child(5)  { right: 43%; animation-duration: 11s;   animation-delay: 0.6s; }
+.victory__drop:nth-child(6)  { right: 55%; animation-duration: 8.5s;  animation-delay: 3.4s; }
+.victory__drop:nth-child(7)  { right: 67%; animation-duration: 12s;   animation-delay: 1.8s; }
+.victory__drop:nth-child(8)  { right: 78%; animation-duration: 9.5s;  animation-delay: 4.2s; }
+.victory__drop:nth-child(9)  { right: 88%; animation-duration: 10s;   animation-delay: 2.2s; }
+.victory__drop:nth-child(10) { right: 96%; animation-duration: 11.5s; animation-delay: 5s; }
+
+
 .site-footer {
   margin-top: 34px;
   text-align: center;
   font-size: 0.83rem;
   color: var(--muted);
 }
+
+@media (min-width: 1120px) {
+  .game {
+    max-width: 1200px;
+    flex-wrap: nowrap;
+  }
+
+  .panel--brief {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+
+  .panel--board {
+    flex: 0 0 auto;
+    position: sticky;
+    top: 14px;
+    align-self: flex-start;
+  }
+
+  .controls {
+    gap: 9px;
+    margin-bottom: 16px;
+  }
+
+ 
+  .control {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 6px;
+    padding: 10px 13px;
+  }
+
+  .control__select {
+    flex-basis: 100%;
+    margin-top: 2px;
+    padding: 7px 10px;
+  }
+
+  .mission-task {
+    margin-bottom: 14px;
+  }
+
+  .mission-title {
+    margin: 4px 0 8px;
+  }
+
+  .lesson-heading {
+    padding-top: 12px;
+    margin-bottom: 8px;
+  }
+
+  .lesson {
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+
+  .scroll {
+    padding-inline: 13px;
+  }
+
+  body {
+    padding-top: 18px;
+    padding-bottom: 28px;
+  }
+
+  .site-header {
+    margin-bottom: 14px;
+  }
+
+  .site-header h1 {
+    font-size: 1.9rem;
+  }
+
+  .tagline {
+    font-size: 0.88rem;
+  }
+
+  .grade {
+    margin-top: 10px;
+  }
+
+  .missions {
+    margin-bottom: 18px;
+  }
+
+  .site-footer {
+    margin-top: 20px;
+  }
+}
+
 
 @media (max-width: 720px) {
   .board-wrapper {
@@ -798,9 +1105,6 @@ body {
     font-size: 0.82rem;
   }
 
-  .ac {
-    max-width: 250px;
-  }
 }
 
 @media (max-width: 580px) {

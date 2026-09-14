@@ -25,10 +25,13 @@
 
   <main class="game">
 
-    <section class="panel">
+    <section class="panel panel--brief">
       <p class="mission-count" id="missionCount"></p>
       <h2 class="mission-title" id="missionTitle"></h2>
       <p class="mission-task" id="missionTask"></p>
+
+      <h3 class="lesson-heading">לא בטוחים מה המושגים אומרים?</h3>
+      <div class="lesson" id="lesson"></div>
 
       <div class="controls" id="controls"></div>
 
@@ -40,12 +43,9 @@
 
       <p class="message" id="message" role="status"></p>
       <p class="attempts" id="attempts"></p>
-
-      <h3 class="lesson-heading">לא בטוחים מה המושגים אומרים?</h3>
-      <div class="lesson" id="lesson"></div>
     </section>
 
-    <section class="panel">
+    <section class="panel panel--board">
       <div class="board-wrapper">
         <div class="board" id="board" dir="ltr">
           <div class="layer layer--targets" id="targets"></div>
@@ -77,6 +77,52 @@
     </section>
 
   </main>
+
+  <!-- מסך הסיום - מוצג כשכל המשימות הושלמו -->
+  <div class="victory" id="victory" role="dialog" aria-modal="true" aria-labelledby="victoryTitle" hidden>
+    <div class="victory__scroll">
+      <div class="victory__frame">
+        <span class="victory__ghost" aria-hidden="true">火影</span>
+        <span class="victory__ring" aria-hidden="true"></span>
+        <span class="victory__ring" aria-hidden="true"></span>
+        <span class="victory__ring" aria-hidden="true"></span>
+
+        <svg class="victory__seal" viewBox="0 0 64 64" width="58" height="58" aria-hidden="true">
+          <circle cx="32" cy="32" r="29" fill="#3f7d4e"/>
+          <circle cx="32" cy="32" r="24" fill="none" stroke="#fff" stroke-width="1.5" opacity=".5"/>
+          <path d="M26 26 c9 -4 15 7 5 12 c-7 3.5 -12 -3 -7 -7"
+                fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+
+        <p class="victory__jp">任務完了</p>
+        <h2 class="victory__title" id="victoryTitle">סיימת את כל המשימות!</h2>
+        <p class="victory__sub">מונית ל־<strong>Hokage 火影</strong> של ה־Flexbox 🏆</p>
+
+        <ul class="victory__stats">
+          <li><b id="victoryMissions">9/9</b><span>משימות</span></li>
+          <li><b id="victoryAttempts">0</b><span>ניסיונות</span></li>
+          <li><b id="victoryPerfect">0</b><span>בניסיון אחד</span></li>
+        </ul>
+
+        <div class="victory__actions">
+          <button type="button" class="btn btn--primary" id="victoryReplay">שחק שוב מההתחלה</button>
+          <button type="button" class="btn" id="victoryClose">חזרה למשימות</button>
+        </div>
+      </div>
+      <div class="victory__stamp" aria-hidden="true">忍</div>
+    </div>
+
+    <!-- עלים ודמויות שנופלים ברקע -->
+    <span class="victory__drop" aria-hidden="true">🍃</span>
+    <img class="victory__drop victory__drop--ninja" src="images/naruto.svg" alt="" aria-hidden="true">
+    <span class="victory__drop" aria-hidden="true">🍂</span>
+    <img class="victory__drop victory__drop--ninja" src="images/sasuke.svg" alt="" aria-hidden="true">
+    <span class="victory__drop" aria-hidden="true">🍃</span>
+    <img class="victory__drop victory__drop--ninja" src="images/sakura.svg" alt="" aria-hidden="true">
+    <span class="victory__drop" aria-hidden="true">🍂</span>
+    <img class="victory__drop victory__drop--ninja" src="images/kakashi.svg" alt="" aria-hidden="true">
+    <img class="victory__drop victory__drop--ninja" src="images/clone.svg" alt="" aria-hidden="true">
+  </div>
 
   <footer class="site-footer">
     <p>נבנה עם HTML, CSS ו-JavaScript בלבד · מטלה 2 – פיתוח אפליקציות אינטרנטיות</p>

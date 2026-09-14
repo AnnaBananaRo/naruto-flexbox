@@ -107,6 +107,12 @@ const checkBtn     = document.getElementById('checkBtn');
 const resetBtn     = document.getElementById('resetBtn');
 const nextBtn      = document.getElementById('nextBtn');
 const restartBtn   = document.getElementById('restartBtn');
+const victory         = document.getElementById('victory');
+const victoryMissions = document.getElementById('victoryMissions');
+const victoryAttempts = document.getElementById('victoryAttempts');
+const victoryPerfect  = document.getElementById('victoryPerfect');
+const victoryReplay   = document.getElementById('victoryReplay');
+const victoryClose    = document.getElementById('victoryClose');
 
 
 let currentIndex = 0; 
@@ -135,9 +141,11 @@ function loadLevel(index) {
   currentIndex = index;
   const level = LEVELS[index];
 
+  const solved = progress.completed.indexOf(index) !== -1;
+
   values = {};
   level.controls.forEach(function (prop) {
-    values[prop] = PROPERTIES[prop].initial;
+    values[prop] = solved ? level.solution[prop] : PROPERTIES[prop].initial;
   });
 
   missionCount.textContent = 'משימה ' + pad(index + 1) + ' מתוך ' + pad(LEVELS.length);
@@ -240,7 +248,7 @@ function buildLesson(level) {
 
     const box = document.createElement('details');
     box.className = 'scroll';
-    box.open = true;
+    box.open = false;
 
     const title = document.createElement('summary');
     title.className = 'scroll__title';
@@ -489,7 +497,8 @@ function caretContext() {
   }, where);
 }
 
-function updateAutocomplete() {
+// showAll = true כשלוחצים עם העכבר, ואז מציגים את כל האפשרויות
+function updateAutocomplete(showAll) {
   const level = LEVELS[currentIndex];
   const context = caretContext();
   let candidates = [];
@@ -499,7 +508,8 @@ function updateAutocomplete() {
   }
 
   if (context.kind === 'prop') {
-    if (context.prefix.length === 0) {
+    // בהקלדה צריך לפחות אות אחת, בלחיצה מציגים גם על מילה שלמה
+    if (!showAll && context.prefix.length === 0) {
       return hideAutocomplete();
     }
     candidates = level.controls.slice();
@@ -511,7 +521,7 @@ function updateAutocomplete() {
     candidates = PROPERTIES[context.prop].options.slice();
   }
 
-  const matches = candidates.filter(function (item) {
+  const matches = showAll ? candidates : candidates.filter(function (item) {
     return item.indexOf(context.prefix) === 0 && item !== context.prefix;
   });
 
@@ -520,11 +530,29 @@ function updateAutocomplete() {
   }
 
   acItems = matches;
-  acIndex = 0;
-  acPrefix = context.prefix;
   acKind = context.kind;
+  acPrefix = showAll ? '' : context.prefix;
+
+  const current = acItems.indexOf(wordAtCaret());
+  acIndex = (showAll && current !== -1) ? current : 0;
 
   renderAutocomplete(context);
+}
+
+function wordAtCaret() {
+  const text = codeEditor.value;
+  const caret = codeEditor.selectionStart;
+  let start = caret;
+  let end = caret;
+
+  while (start > 0 && /[a-zA-Z-]/.test(text[start - 1])) {
+    start--;
+  }
+  while (end < text.length && /[a-zA-Z-]/.test(text[end])) {
+    end++;
+  }
+
+  return text.slice(start, end).toLowerCase();
 }
 
 function renderAutocomplete(context) {
@@ -539,13 +567,7 @@ function renderAutocomplete(context) {
     const typed = item.slice(0, acPrefix.length);
     const rest = item.slice(acPrefix.length);
 
-    const hint = acKind === 'value'
-      ? PROPERTIES[context.prop].values[item]
-      : PROPERTIES[item].hint;
-
-    li.innerHTML =
-      '<span class="ac__text"><b>' + typed + '</b>' + rest + '</span>' +
-      '<span class="ac__hint">' + hint + '</span>';
+    li.innerHTML = '<span class="ac__text"><b>' + typed + '</b>' + rest + '</span>';
 
     li.addEventListener('mousedown', function (event) {
       event.preventDefault();
@@ -663,6 +685,35 @@ function onSuccess(level) {
 
   checkBtn.disabled = true;
   nextBtn.hidden = isLast;
+
+  // כל המשימות הושלמו - מציגים את מסך הסיום אחרי אנימציית הג'וטסו
+  if (progress.completed.length === LEVELS.length) {
+    setTimeout(showVictory, 1500);
+  }
+}
+
+function showVictory() {
+  let total = 0;
+  let perfect = 0;
+
+  progress.completed.forEach(function (index) {
+    const tries = progress.attempts[index] || 0;
+    total += tries;
+    if (tries === 1) {
+      perfect++;
+    }
+  });
+
+  victoryMissions.textContent = progress.completed.length + '/' + LEVELS.length;
+  victoryAttempts.textContent = total;
+  victoryPerfect.textContent = perfect;
+
+  victory.hidden = false;
+  victoryClose.focus();
+}
+
+function hideVictory() {
+  victory.hidden = true;
 }
 
 function onFailure() {
@@ -779,7 +830,7 @@ codeEditor.addEventListener('keydown', function (event) {
   }
 });
 
-codeEditor.addEventListener('click', updateAutocomplete);
+codeEditor.addEventListener('click', function () { updateAutocomplete(true); });
 codeEditor.addEventListener('blur', hideAutocomplete);
 
 resetBtn.addEventListener('click', function () {
@@ -820,10 +871,25 @@ restartBtn.addEventListener('click', function () {
   }
 
   disarmRestart();
+  startOver();
+});
+
+function startOver() {
+  hideVictory();
   progress = { unlocked: 0, completed: [], attempts: {} };
   saveProgress();
   loadLevel(0);
   window.scrollTo(0, 0);
+}
+
+victoryClose.addEventListener('click', hideVictory);
+victoryReplay.addEventListener('click', startOver);
+
+// Escape סוגר את מסך הסיום
+document.addEventListener('keydown', function (event) {
+  if (event.key === 'Escape' && !victory.hidden) {
+    hideVictory();
+  }
 });
 
 
