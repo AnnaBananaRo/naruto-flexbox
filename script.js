@@ -497,7 +497,6 @@ function caretContext() {
   }, where);
 }
 
-// showAll = true כשלוחצים עם העכבר, ואז מציגים את כל האפשרויות
 function updateAutocomplete(showAll) {
   const level = LEVELS[currentIndex];
   const context = caretContext();
@@ -508,7 +507,6 @@ function updateAutocomplete(showAll) {
   }
 
   if (context.kind === 'prop') {
-    // בהקלדה צריך לפחות אות אחת, בלחיצה מציגים גם על מילה שלמה
     if (!showAll && context.prefix.length === 0) {
       return hideAutocomplete();
     }
@@ -686,7 +684,6 @@ function onSuccess(level) {
   checkBtn.disabled = true;
   nextBtn.hidden = isLast;
 
-  // כל המשימות הושלמו - מציגים את מסך הסיום אחרי אנימציית הג'וטסו
   if (progress.completed.length === LEVELS.length) {
     setTimeout(showVictory, 1500);
   }
