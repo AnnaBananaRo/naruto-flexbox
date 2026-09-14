@@ -1,0 +1,89 @@
+/* ---------- Anna Rotenshtein & Eden Kaushansky ---------- */
+
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flexbox no Jutsu – משחק ללימוד Flexbox</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header class="site-header">
+    <p class="site-header__jp">忍術</p>
+    <h1 dir="ltr">Flexbox no Jutsu</h1>
+    <p class="tagline">כפר העלה הנסתר · שדה האימונים של צוות 7</p>
+    <div class="grade" id="grade"></div>
+    <button type="button" class="btn btn--restart" id="restartBtn">🔄 התחל משחק מחדש</button>
+  </header>
+
+  <nav class="missions" id="missionsNav" aria-label="ניווט בין משימות"></nav>
+
+  <main class="game">
+
+    <section class="panel">
+      <p class="mission-count" id="missionCount"></p>
+      <h2 class="mission-title" id="missionTitle"></h2>
+      <p class="mission-task" id="missionTask"></p>
+
+      <div class="controls" id="controls"></div>
+
+      <div class="actions">
+        <button type="button" class="btn btn--primary" id="checkBtn">הפעל ג'וטסו ⟡</button>
+        <button type="button" class="btn" id="resetBtn">איפוס</button>
+        <button type="button" class="btn btn--next" id="nextBtn" hidden>המשימה הבאה ➜</button>
+      </div>
+
+      <p class="message" id="message" role="status"></p>
+      <p class="attempts" id="attempts"></p>
+
+      <h3 class="lesson-heading">לא בטוחים מה המושגים אומרים?</h3>
+      <div class="lesson" id="lesson"></div>
+    </section>
+
+    <section class="panel">
+      <div class="board-wrapper">
+        <div class="board" id="board" dir="ltr">
+          <div class="layer layer--targets" id="targets"></div>
+          <div class="layer layer--units" id="units"></div>
+
+          <div class="jutsu" id="jutsu" hidden>
+            <span class="jutsu__ring"></span>
+            <span class="jutsu__text">忍</span>
+          </div>
+        </div>
+      </div>
+
+      <ul class="squad" id="squad"></ul>
+
+      <div class="code-block">
+        <div class="code-block__bar">術 · קוד הג'וטסו — אפשר לבחור בתפריטים או לכתוב כאן ישירות ✏️</div>
+        <label class="sr-only" for="codeEditor">עריכת קוד ה-CSS של המשימה</label>
+
+        <div class="code-area">
+          <textarea id="codeEditor" dir="ltr" spellcheck="false"
+                    autocapitalize="off" autocorrect="off" autocomplete="off"
+                    role="combobox" aria-expanded="false" aria-autocomplete="list"
+                    aria-controls="autocomplete"></textarea>
+
+          <ul class="ac" id="autocomplete" role="listbox" hidden></ul>
+        </div>
+      </div>
+      <p class="code-note" id="codeNote" role="status"></p>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>נבנה עם HTML, CSS ו-JavaScript בלבד · מטלה 2 – פיתוח אפליקציות אינטרנטיות</p>
+  </footer>
+
+  <script src="levels.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

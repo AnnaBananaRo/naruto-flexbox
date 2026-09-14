@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="סאקורה">
+  <!-- שיער ורוד שמסגר את הפנים -->
+  <path fill="#f191b4" d="M11 46 C8 20 16 3 32 3 C48 3 56 20 53 46 C50 30 46 19 32 19 C18 19 14 30 11 46 Z"/>
+
+  <!-- פנים -->
+  <ellipse cx="32" cy="38" rx="17" ry="18" fill="#f9dcc2"/>
+
+  <!-- פוני -->
+  <path fill="#f191b4" d="M15 26 C18 16 24 11 32 11 C40 11 46 16 49 26 C42 21 36 19.5 32 19.5 C26 19.5 20 22 15 26 Z"/>
+
+  <!-- סרט המצח האדום (נענד כסרט ראש) -->
+  <rect x="13.5" y="13" width="37" height="7.5" rx="2.5" fill="#d94040"/>
+  <rect x="25" y="11.8" width="14" height="10" rx="1.5" fill="#ccd3dd"/>
+  <path d="M30.4 15 c3.3 -0.7 4.3 3 1.4 4.4 c-2.2 1 -4 -0.8 -2.8 -2.4"
+        fill="none" stroke="#5a6472" stroke-width="1.2" stroke-linecap="round"/>
+
+  <!-- עיניים ירוקות -->
+  <circle cx="25" cy="37" r="3" fill="#3f9d58"/>
+  <circle cx="39" cy="37" r="3" fill="#3f9d58"/>
+
+  <!-- חיוך -->
+  <path d="M29 50.5 q3 2.6 6 0" fill="none" stroke="#c07c50" stroke-width="1.6" stroke-linecap="round"/>
+</svg>
