@@ -1327,6 +1327,47 @@ body {
 }
 
 
+@media (max-width: 480px) {
+  .intro {
+    padding: 14px 12px;
+  }
+
+  .intro__scroll {
+    padding: 14px 14px 12px;
+  }
+
+  .intro__frame {
+    padding: 12px 11px 10px;
+  }
+
+  .intro__title {
+    font-size: 1.35rem;
+  }
+
+  .intro__lead {
+    margin-bottom: 10px;
+    font-size: 0.86rem;
+  }
+
+  .intro__block {
+    margin-bottom: 10px;
+  }
+
+  .intro__demo {
+    padding: 14px 8px 6px;
+  }
+
+  .intro__item {
+    width: 28px;
+    height: 28px;
+  }
+
+  .intro__names {
+    margin-top: 7px;
+  }
+}
+
+
 @media (max-width: 720px) {
   .board-wrapper {
     width: 480px;
