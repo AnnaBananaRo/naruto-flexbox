@@ -3,7 +3,7 @@
 const PROPERTIES = {
   'display': {
     hint: 'קובע אם השדה מתנהג כ-Flex Container',
-    lesson: 'כל סידור ב-Flexbox מתחיל כאן. ברגע שנותנים למכיל display: flex, כל הפריטים שבתוכו הופכים ל"פריטי פלקס" ומסתדרים לאורך ציר אחד. בלי השורה הזו שאר התכונות פשוט לא עושות כלום.',
+    lesson: 'כל סידור ב-Flexbox מתחיל כאן. ברגע שנותנים לקונטיינר display: flex, כל הפריטים שבתוכו הופכים ל"פריטי פלקס" ומסתדרים לאורך ציר אחד. בלי השורה הזו שאר התכונות פשוט לא עושות כלום.',
     options: ['block', 'flex'],
     values: {
       'block': 'התנהגות רגילה – כל פריט תופס שורה משלו, אחד מתחת לשני',
@@ -55,10 +55,10 @@ const PROPERTIES = {
 
   'flex-wrap': {
     hint: 'האם מותר לפריטים לרדת לשורה נוספת',
-    lesson: 'קובעת מה קורה כשהפריטים לא נכנסים בשורה אחת: להישאר דחוסים ולגלוש אל מחוץ למכיל, או לרדת לשורה נוספת.',
+    lesson: 'קובעת מה קורה כשהפריטים לא נכנסים בשורה אחת: להישאר דחוסים ולגלוש אל מחוץ לקונטיינר, או לרדת לשורה נוספת.',
     options: ['nowrap', 'wrap', 'wrap-reverse'],
     values: {
-      'nowrap': 'הכל נשאר בשורה אחת, גם אם הפריטים גולשים מחוץ למכיל (ברירת המחדל)',
+      'nowrap': 'הכל נשאר בשורה אחת, גם אם הפריטים גולשים מחוץ לקונטיינר (ברירת המחדל)',
       'wrap': 'פריטים שלא נכנסים יורדים לשורה הבאה',
       'wrap-reverse': 'כמו wrap, אבל השורות הנוספות נערמות בכיוון ההפוך'
     },
@@ -84,6 +84,7 @@ const RANKS = [
 ];
 
 const STORAGE_KEY = 'naruto-flexbox-progress';
+const INTRO_KEY   = 'naruto-flexbox-intro-seen';
 
 
 const missionsNav  = document.getElementById('missionsNav');
@@ -113,6 +114,9 @@ const victoryAttempts = document.getElementById('victoryAttempts');
 const victoryPerfect  = document.getElementById('victoryPerfect');
 const victoryReplay   = document.getElementById('victoryReplay');
 const victoryClose    = document.getElementById('victoryClose');
+const intro           = document.getElementById('intro');
+const introStart      = document.getElementById('introStart');
+const helpBtn         = document.getElementById('helpBtn');
 
 
 let currentIndex = 0; 
@@ -871,24 +875,66 @@ restartBtn.addEventListener('click', function () {
   startOver();
 });
 
+function showIntro() {
+  intro.hidden = false;
+  introStart.focus();
+}
+
+function hideIntro(remember) {
+  intro.hidden = true;
+  if (remember) {
+    try {
+      localStorage.setItem(INTRO_KEY, '1');
+    } catch (e) {
+    }
+  }
+}
+
+introStart.addEventListener('click', function () { hideIntro(true); });
+helpBtn.addEventListener('click', showIntro);
+
+intro.addEventListener('click', function (event) {
+  if (event.target === intro) {
+    hideIntro(true);
+  }
+});
+
 function startOver() {
   hideVictory();
   progress = { unlocked: 0, completed: [], attempts: {} };
   saveProgress();
   loadLevel(0);
   window.scrollTo(0, 0);
+
+  try {
+    localStorage.removeItem(INTRO_KEY);
+  } catch (e) {
+  }
+  showIntro();
 }
 
 victoryClose.addEventListener('click', hideVictory);
 victoryReplay.addEventListener('click', startOver);
 
-// Escape סוגר את מסך הסיום
 document.addEventListener('keydown', function (event) {
-  if (event.key === 'Escape' && !victory.hidden) {
+  if (event.key !== 'Escape') {
+    return;
+  }
+  if (!victory.hidden) {
     hideVictory();
+  } else if (!intro.hidden) {
+    hideIntro(true);
   }
 });
 
 
 loadLevel(Math.min(progress.unlocked, LEVELS.length - 1));
+
+try {
+  if (!localStorage.getItem(INTRO_KEY)) {
+    showIntro();
+  }
+} catch (e) {
+  showIntro();
+}
 

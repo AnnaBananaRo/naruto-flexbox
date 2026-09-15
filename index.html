@@ -18,6 +18,7 @@
     <h1 dir="ltr">Flexbox no Jutsu</h1>
     <p class="tagline">כפר העלה הנסתר · שדה האימונים של צוות 7</p>
     <div class="grade" id="grade"></div>
+    <button type="button" class="btn btn--help" id="helpBtn">❓ איך משחקים</button>
     <button type="button" class="btn btn--restart" id="restartBtn">🔄 התחל משחק מחדש</button>
   </header>
 
@@ -77,6 +78,68 @@
     </section>
 
   </main>
+
+  <div class="intro" id="intro" role="dialog" aria-modal="true" aria-labelledby="introTitle" hidden>
+    <div class="intro__scroll">
+      <div class="intro__frame">
+
+        <svg class="intro__seal" viewBox="0 0 64 64" width="44" height="44" aria-hidden="true">
+          <circle cx="32" cy="32" r="29" fill="#3f7d4e"/>
+          <circle cx="32" cy="32" r="24" fill="none" stroke="#fff" stroke-width="1.5" opacity=".5"/>
+          <path d="M26 26 c9 -4 15 7 5 12 c-7 3.5 -12 -3 -7 -7"
+                fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+
+        <p class="intro__jp">忍術</p>
+        <h2 class="intro__title" id="introTitle" dir="ltr">Flexbox no Jutsu</h2>
+        <p class="intro__lead">
+          משחק קצר שמלמד <strong>CSS Flexbox</strong> דרך תשעה אימונים של צוות 7.
+        </p>
+
+        <section class="intro__block">
+          <h3 class="intro__heading">📚 מה לומדים כאן</h3>
+          <ul class="intro__props">
+            <li>display</li>
+            <li>flex-direction</li>
+            <li>justify-content</li>
+            <li>align-items</li>
+            <li>flex-wrap</li>
+          </ul>
+        </section>
+
+        <section class="intro__block">
+          <h3 class="intro__heading">🎯 איך משחקים</h3>
+          <ol class="intro__steps">
+            <li>קוראים את התדריך. נקודות הציון מסמנות לאן כל נינג'ה צריך להגיע.</li>
+            <li>בוחרים ערכים בתפריטים, או כותבים CSS ישירות בתיבת הקוד.</li>
+            <li>לוחצים <strong>"הפעל ג'וטסו"</strong> — וממשיכים למשימה הבאה.</li>
+          </ol>
+        </section>
+
+        <section class="intro__block">
+          <h3 class="intro__heading">💡 המושג שחשוב להכיר</h3>
+
+          <div class="intro__demo" dir="ltr">
+            <div class="intro__box">
+              <span class="intro__tag intro__tag--box">הקונטיינר</span>
+              <img class="intro__item" src="images/naruto.svg" alt="" aria-hidden="true">
+              <img class="intro__item" src="images/sasuke.svg" alt="" aria-hidden="true">
+              <img class="intro__item" src="images/sakura.svg" alt="" aria-hidden="true">
+            </div>
+            <span class="intro__tag intro__tag--items">הפריטים</span>
+          </div>
+
+          <p class="intro__note">
+            לא מזיזים כל נינג'ה בנפרד. נותנים <strong>לקונטיינר</strong> את
+            <code>display: flex</code>, והוא מסדר את <strong>הפריטים</strong> שבתוכו.
+          </p>
+        </section>
+
+        <button type="button" class="btn btn--primary intro__start" id="introStart">בואו נתחיל 🍥</button>
+        <p class="intro__names">Anna Rotenshtein · Eden Kaushansky</p>
+      </div>
+    </div>
+  </div>
 
   <div class="victory" id="victory" role="dialog" aria-modal="true" aria-labelledby="victoryTitle" hidden>
     <div class="victory__scroll">
