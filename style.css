@@ -9,7 +9,7 @@
 
   --orange: #ef7722;
   --orange-dark: #b04f0d;
-  --leaf: #3f7d4e;
+  --leaf: #356b42;
   --blue: #2f5aa8;
   --err: #c0392b;
 
@@ -43,7 +43,7 @@ body {
   margin: 0;
   font-size: 1rem;
   letter-spacing: 0.6em;
-  color: var(--orange);
+  color: var(--orange-dark);
   font-weight: 700;
 }
 
@@ -167,7 +167,7 @@ body {
   font-family: "Courier New", monospace;
   font-size: 0.85rem;
   font-weight: 700;
-  color: var(--orange);
+  color: var(--orange-dark);
   letter-spacing: 0.12em;
 }
 
